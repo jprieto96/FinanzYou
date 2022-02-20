@@ -38,7 +38,7 @@ public class SATransactionImp implements SATransaction {
     @Override
     public TTransaction addTransaction(TTransaction tTransaction) throws Exception {
         Optional<Client> auxUser = repositoryClient.findClientById(tTransaction.getIdClient());
-        Optional<Stock> auxStock = repositoryStock.findStockById(tTransaction.getStock().getId());
+        Optional<Stock> auxStock = repositoryStock.findStockById(tTransaction.getStockID());
 
         ValidationException e = null;
         Transaction transaction = tTransaction.toEntity();
@@ -52,8 +52,8 @@ public class SATransactionImp implements SATransaction {
             }
             else if(!auxStock.isPresent()) {
                 Stock stock = new Stock();
-                stock.setId(tTransaction.getStock().getId());
-                stock.setName(tTransaction.getStock().getName());
+                stock.setId(tTransaction.getStockID());
+                stock.setName(tTransaction.getStockName());
                 repositoryStock.save(stock);
                 transaction.setStock(stock);
                 transaction.setClient(auxUser.get());
