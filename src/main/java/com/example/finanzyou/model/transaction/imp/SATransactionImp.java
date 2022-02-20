@@ -54,6 +54,7 @@ public class SATransactionImp implements SATransaction {
                 Stock stock = new Stock();
                 stock.setId(tTransaction.getStockID());
                 stock.setName(tTransaction.getStockName());
+                stock.setSector(tTransaction.getStockSector());
                 repositoryStock.save(stock);
                 transaction.setStock(stock);
                 transaction.setClient(auxUser.get());

@@ -12,16 +12,18 @@ public class TTransaction {
     private int idClient;
     private String stockID;
     private String stockName;
+    private String stockSector;
     private double buyPrice;
     private int quantity;
     private Date date;
     private double commision;
 
-    public TTransaction(int id, int idClient, String stockID, String stockName, double buyPrice, int quantity, Date date, double commision) {
+    public TTransaction(int id, int idClient, String stockID, String stockName, String stockSector, double buyPrice, int quantity, Date date, double commision) {
         this.id = id;
         this.idClient = idClient;
         this.stockID = stockID;
         this.stockName = stockName;
+        this.stockSector = stockSector;
         this.buyPrice = buyPrice;
         this.quantity = quantity;
         this.date = date;

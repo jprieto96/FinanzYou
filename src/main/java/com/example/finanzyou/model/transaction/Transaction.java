@@ -37,7 +37,7 @@ public class Transaction {
     }
 
     public TTransaction toTransfer() {
-        return new TTransaction(id, client.getId(), stock.getId(), stock.getName(), buyPrice, quantity, date, commision);
+        return new TTransaction(id, client.getId(), stock.getId(), stock.getName(), stock.getSector(), buyPrice, quantity, date, commision);
     }
 
 }
