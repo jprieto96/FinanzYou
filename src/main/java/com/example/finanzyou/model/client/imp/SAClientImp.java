@@ -173,7 +173,7 @@ public class SAClientImp implements SAClient {
                 portfolio.put(t.getStock().getId(), detailsPortfolio);
             }
             else {
-                portfolio.put(t.getStock().getId(), new DetailsPortfolio(t.getQuantity(), t.getBuyPrice(), t.getStock().getSector()));
+                portfolio.put(t.getStock().getId(), new DetailsPortfolio(t.getQuantity(), t.getBuyPrice()));
             }
         }
 
