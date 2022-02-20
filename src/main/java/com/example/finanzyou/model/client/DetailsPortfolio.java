@@ -7,11 +7,13 @@ public class DetailsPortfolio {
 
     private int quantity;
     private double buyPrice;
+    private String sector;
 
     public DetailsPortfolio() {}
 
-    public DetailsPortfolio(int quantity, double buyPrice) {
+    public DetailsPortfolio(int quantity, double buyPrice, String sector) {
         this.quantity = quantity;
         this.buyPrice = buyPrice;
+        this.sector = sector;
     }
 }
