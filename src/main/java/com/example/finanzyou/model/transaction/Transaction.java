@@ -24,19 +24,21 @@ public class Transaction {
     private double buyPrice;
     private int quantity;
     private Date date;
+    private String currency;
    
 
     public Transaction() {}
 
-    public Transaction(int id, int idClient, String idStock, double buyPrice, int quantity, Date date) {
+    public Transaction(int id, int idClient, String idStock, double buyPrice, int quantity, Date date, String currency) {
         this.id = id;
         this.buyPrice = buyPrice;
         this.quantity = quantity;
         this.date = date;
+        this.currency = currency;
     }
 
     public TTransaction toTransfer() {
-        return new TTransaction(id, client.getId(), stock.getId(), stock.getName(), stock.getSector(), buyPrice, quantity, date);
+        return new TTransaction(id, client.getId(), stock.getId(), stock.getName(), stock.getSector(), buyPrice, quantity, date, currency);
     }
 
 }

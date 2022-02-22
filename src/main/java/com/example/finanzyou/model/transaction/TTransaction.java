@@ -16,8 +16,9 @@ public class TTransaction {
     private double buyPrice;
     private int quantity;
     private Date date;
+    private String currency;
 
-    public TTransaction(int id, int idClient, String stockID, String stockName, String stockSector, double buyPrice, int quantity, Date date) {
+    public TTransaction(int id, int idClient, String stockID, String stockName, String stockSector, double buyPrice, int quantity, Date date, String currency) {
         this.id = id;
         this.idClient = idClient;
         this.stockID = stockID;
@@ -26,12 +27,13 @@ public class TTransaction {
         this.buyPrice = buyPrice;
         this.quantity = quantity;
         this.date = date;
+        this.currency = currency;
     }
 
     public TTransaction() {
     }
 
     public Transaction toEntity() {
-        return new Transaction(id, idClient, stockID, buyPrice, quantity, date);
+        return new Transaction(id, idClient, stockID, buyPrice, quantity, date, currency);
     }
 }
