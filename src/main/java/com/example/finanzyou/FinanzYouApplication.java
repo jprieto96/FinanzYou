@@ -20,7 +20,7 @@ public class FinanzYouApplication {
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Arrays.asList("https://finanzyou-front.herokuapp.com/", "http://localhost:8080"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("https://finanzyou-front.herokuapp.com/", "http://localhost:8080", "http://localhost:8081"));
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers"));
