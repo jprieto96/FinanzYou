@@ -83,4 +83,9 @@ public class SATransactionImp implements SATransaction {
         return listTransactions;
     }
 
+    @Override
+    public void deleteTransaction(int id) {
+        repositoryTransaction.deleteAllById(id);
+    }
+
 }
