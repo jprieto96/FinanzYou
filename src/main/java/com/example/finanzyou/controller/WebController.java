@@ -106,16 +106,8 @@ public class WebController {
             response.setStatus(400);
             return e.getMessage();
         }
-        if (!transactionList.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            log.error("The service has failed");
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return INTERNAL_SERVER_ERROR;
-        }
-
+        response.setStatus(HttpServletResponse.SC_OK);
         log.debug("Information correctly loaded for the client with ID: {}", clientId);
-
         return new Gson().toJson(transactionList);
     }
 
