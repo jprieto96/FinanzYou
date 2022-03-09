@@ -11,5 +11,5 @@ public interface RepositoryTransaction extends JpaRepository<Transaction, Intege
 
     @Query("SELECT t FROM Transaction t WHERE t.client.id = ?1")
     List<Transaction> findByIdClient(int idClient);
-
+    void deleteAllById(int idTransaction);
 }

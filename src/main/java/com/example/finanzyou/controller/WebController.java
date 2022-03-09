@@ -106,16 +106,8 @@ public class WebController {
             response.setStatus(400);
             return e.getMessage();
         }
-        if (!transactionList.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            log.error("The service has failed");
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return INTERNAL_SERVER_ERROR;
-        }
-
+        response.setStatus(HttpServletResponse.SC_OK);
         log.debug("Information correctly loaded for the client with ID: {}", clientId);
-
         return new Gson().toJson(transactionList);
     }
 
@@ -202,6 +194,22 @@ public class WebController {
         log.debug("The transaction has been created correctly: {}", newTransaction);
 
         return new Gson().toJson(newTransaction);
+    }
+
+    @PostMapping(path = "/client/deleteTransaction", consumes = "application/json")
+    public void deleteTransaction(@RequestBody TTransaction tTransaction, HttpServletResponse response) {
+
+        log.debug("Initiating POST operation: delete transaction");
+
+        try {
+            saTransaction.deleteTransaction(tTransaction.getId());
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e){
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.error(e.getMessage());
+        }
+
+        log.debug("The transaction has been deleted correctly");
     }
 
 }
