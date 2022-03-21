@@ -219,4 +219,62 @@ public class SAClientImp implements SAClient {
         return matcher.find();
     }
 
+    @Override
+    public TClient editClient(TClient tClient) throws ValidationException {
+        Optional<Client> auxClient = repositoryClient.findClientById(tClient.getId());
+        ValidationException e = null;
+
+        if(!auxClient.isPresent() || (auxClient.isPresent() && !auxClient.get().isActive())) {
+            e = new InvalidUserNotExistsException();
+        }
+
+        if(tClient.getUsername().equals("") && tClient.getPassword().equals("")) {
+            e = new InvalidEmptyNameException();
+        } else if (validateUser(tClient.getUsername()) && !validatePassword(tClient.getPassword())) {
+            e = new InvalidUserFormatException();
+        }
+
+        if (Optional.ofNullable(e).isPresent()) {
+            log.warn("User creation has not passed validation rules: {}",
+                    e.getMessage());
+            throw e;
+        }
+
+        log.debug("User: {} has passed validation rules", tClient.getUsername());
+
+        Client client = auxClient.get().editAtributes(tClient.getUsername(), tClient.getPassword());
+        Client clientSaved = repositoryClient.save(client);
+
+        return clientSaved.toTransfer();
+    }
+
+    @Override
+    public void checkOldPassword(TClient tClient) throws ValidationException {
+        Optional<Client> auxClient = repositoryClient.findClientById(tClient.getId());
+
+        ValidationException e = null;
+
+        if(!auxClient.isPresent() || (auxClient.isPresent() && !auxClient.get().isActive())) {
+            e = new InvalidUserNotExistsException();
+        }
+
+        TClient auxTClient = auxClient.get().toTransfer();
+
+        if(tClient.getPassword().equals("")) {
+            e = new InvalidEmptyNameException();
+        } else if (!validatePassword(tClient.getPassword())) {
+            e = new InvalidPasswordFormatException();
+        } else if (!tClient.getPassword().equals(auxTClient.getPassword())) {
+            e = new InvalidPasswordException();
+        }
+
+        if (Optional.ofNullable(e).isPresent()) {
+            log.warn("User check old password has not passed validation rules: {}",
+                    e.getMessage());
+            throw e;
+        }
+
+        log.debug("User: {} has passed validation rules", tClient.getUsername());
+    }
+
 }

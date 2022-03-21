@@ -212,4 +212,51 @@ public class WebController {
         log.debug("The transaction has been deleted correctly");
     }
 
+    @PostMapping(path = "/client/editClient", consumes = "application/json")
+    public String editUserProfile(@RequestBody TClient tClient, HttpServletResponse response){
+
+        log.debug("Initiating edit user profile method for client: {}", tClient);
+
+        TClient clientToEdit = new TClient();
+
+        Optional<TClient> optional = null;
+        try {
+            optional = Optional.ofNullable(saClient.editClient(tClient));
+        } catch (Exception e) {
+            log.error("The service responds with the following error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+
+        if (optional.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            clientToEdit = optional.get();
+        } else {
+            log.error("The service does not respond correctly");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+
+        log.debug("Information correctly edited for the client: {}", tClient);
+
+        return new Gson().toJson(clientToEdit);
+    }
+
+    @PostMapping(path = "/client/oldPasswordCheck", consumes = "application/json")
+    public boolean checkOldPassword(@RequestBody TClient tClient, HttpServletResponse response){
+
+        log.debug("Initiating check old password method for client: {}", tClient);
+
+        try {
+            saClient.checkOldPassword(tClient);
+        } catch (Exception e) {
+            log.error("The service responds with the following error: {}", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+            return false;
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        log.debug("Information correctly edited for the client: {}", tClient);
+
+        return true;
+    }
 }
