@@ -36,4 +36,12 @@ public class Client {
         return new TClient(id, username, password, dni, active);
     }
 
+    public Client editAtributes(String newUsername, String newPassword){
+
+        this.username = newUsername;
+        this.password = newPassword;
+
+        return this;
+    }
+
 }
