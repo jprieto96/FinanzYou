@@ -214,7 +214,7 @@ public class SAClientImp implements SAClient {
         if (decryptedPassword.length() < 8) {
             return false;
         }
-        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z]).{8,}$");
+        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,}$");
         Matcher matcher = pattern.matcher(decryptedPassword);
         return matcher.find();
     }
